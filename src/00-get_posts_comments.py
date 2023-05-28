@@ -12,11 +12,11 @@ from yaml.loader import SafeLoader
 with open('../config-personal.yml') as f:
     config = yaml.load(f, Loader=SafeLoader)
 
-logging.basicConfig(level=logging.INFO, filename='logs/00-get_post_comments.log')
+logging.basicConfig(level=logging.DEBUG, filename='logs/00-get_post_comments.log', filemode='w')
 
 
 class RedditCommentLoader(object):
-    def __init__(self, from_id: str) -> None:
+    def __init__(self, from_id: str = None) -> None:  #
         self.reddit = praw.Reddit(
             client_id=config['reddit']['client_id'],
             client_secret=config['reddit']['secret'],
@@ -27,8 +27,6 @@ class RedditCommentLoader(object):
         self.post_c = 0
         self.last_post_id = None
         self.from_id = from_id
-
-        self.run()
 
     def draw_comments(self, post_id: str) -> Tuple:
         comment_ls = []
@@ -46,6 +44,9 @@ class RedditCommentLoader(object):
         if self.from_id:
             ind = self.post_ids.index(self.from_id)
             self.post_ids = self.post_ids[ind+1:]
+
+        logging.info('Comment process starting now')
+        print('Comment process starting now')
 
         for post_id in self.post_ids:
             self.post_c += 1
@@ -87,5 +88,6 @@ class RedditCommentLoader(object):
             logging.info('All comments were saved successfully')
 
 
-args = parse_args()
-RedditCommentLoader(from_id=args.from_id).run()
+# args = parse_args()
+redd = RedditCommentLoader(from_id=None)  # Change to the preferred post id
+redd.run()
