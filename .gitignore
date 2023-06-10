@@ -5,3 +5,4 @@ config-personal.yml
 **/.DS_Store
 **/__pycache__/
 **/logs
+pres/
