@@ -6,3 +6,4 @@ config-personal.yml
 **/__pycache__/
 **/logs
 pres/
+**/.ipynb_checkpoints/
