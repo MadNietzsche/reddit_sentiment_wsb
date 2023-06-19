@@ -61,5 +61,6 @@ sent_posts.to_csv('../data/senti_posts.zip', index=False, compression='zip')
 print('Posts finished modelling!')
 
 sent_comment = sentiment(df_comments, 'comments', col='comments', n_col=None)
+sent_comment = sent_comment.groupby(['id_col', 'comments', 'score']).first().reset_index()
 sent_comment.to_csv('../data/senti_comments.zip', index=False, compression='zip')
 print('Comments finished modelling!')

@@ -7,3 +7,4 @@ config-personal.yml
 **/logs
 pres/
 **/.ipynb_checkpoints/
+img/
