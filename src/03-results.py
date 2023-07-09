@@ -130,12 +130,8 @@ df_sent_stock = df_sent_stock[df_sent_stock['close_returns'].notnull()]
 ccf_amc = ccf_values(df_sent_stock['positive'], df_sent_stock['close_returns'])
 lags = correlation_lags(len(df_sent_stock['positive']), len(df_sent_stock['close_returns']))
 
-fig, ax = plt.subplots(figsize=[15, 5])
-ccf_plot(lags, ccf_amc, 'AMC', ax=ax)
-plt.tight_layout()
-fig.savefig('../img/amc_sent_corr.png', transparent=True)
-plt.close(fig)
-print('Fig 4: AMC and Sentiment correlations finished!')
+fig, ax = plt.subplots(2, 1, figsize=[10, 10], sharex=True)
+ccf_plot(lags, ccf_amc, 'AMC', ax=ax[0], title=True)
 
 df_sent_stock = comments_count.merge(df_gme[['date', 'close_returns']], on='date', how='left')
 df_sent_stock = df_sent_stock[df_sent_stock['close_returns'].notnull()]
@@ -143,9 +139,9 @@ df_sent_stock = df_sent_stock[df_sent_stock['close_returns'].notnull()]
 ccf_gme = ccf_values(df_sent_stock['positive'], df_sent_stock['close_returns'])
 lags = correlation_lags(len(df_sent_stock['positive']), len(df_sent_stock['close_returns']))
 
-fig, ax = plt.subplots(figsize=[15, 5])
-ccf_plot(lags, ccf_gme, 'GME', ax=ax)
+ccf_plot(lags, ccf_gme, 'GME', ax=ax[1], title=True, x_lab=True)
+# fig.supxlabel('Time Lags', weight='bold', fontsize=12)
 plt.tight_layout()
-fig.savefig('../img/gme_sent_corr.png', transparent=True)
+fig.savefig('../img/amc_gme_sent_corr.png', transparent=True)
 plt.close(fig)
-print('Fig 5: GME and Sentiment correlations finished!')
+print('Fig 4`: AMC and GME Sentiment correlations finished!')

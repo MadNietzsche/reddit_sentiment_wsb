@@ -122,7 +122,7 @@ def ccf_values(series1, series2):
     return c
 
 
-def ccf_plot(lags, ccf, stock_name, ax=None, title=False):
+def ccf_plot(lags, ccf, stock_name, ax=None, title=False, x_lab=False):
     if ax is None:
         ax = plt.gca()
 
@@ -136,11 +136,14 @@ def ccf_plot(lags, ccf, stock_name, ax=None, title=False):
     ax.axhline(y = np.min(ccf), color='blue', lw=1,
                linestyle='--')
 
-    ax.set(ylim=[-1, 1], xlim=[-50, 50])
+    ax.set(ylim=[-1, 1], xlim=[-20, 20])
     if title:
-        ax.set_title(f'Cross Correlation between {stock_name} Stock and Positive Sentiments', weight='bold', fontsize=15)
+        ax.set_title(stock_name, weight='bold', fontsize=15)
     ax.set_ylabel('Correlation Coefficients', weight='bold',
                   fontsize=12)
-    ax.set_xlabel('Time Lags', weight='bold', fontsize=12)
+    if x_lab:
+        ax.set_xlabel('Time Lags', weight='bold',
+                      fontsize=12)
+
 
     return ax
